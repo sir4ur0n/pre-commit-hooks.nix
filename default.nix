@@ -11,6 +11,9 @@
 #   ).defaultNix;
 # in
 # flake.lib.${builtins.currentSystem} // flake.packages.${builtins.currentSystem}
-(import (fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz") {
-  src = ./.;
-}).defaultNix
+let
+  flake = (import (fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz") {
+    src = ./.;
+  }).defaultNix;
+in
+flake.lib.${builtins.currentSystem} // flake.packages.${builtins.currentSystem}
